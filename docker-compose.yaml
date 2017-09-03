@@ -1,0 +1,23 @@
+version: '2'
+
+services:
+
+  web:
+    build: './frontend/server'
+    restart: 'always'
+
+  api:
+    build: './backend/api'
+    volumes:
+      - './backend/api:/app:ro'
+    working_dir: '/app'
+    environment:
+      DATASTORE_URI: 'postgres://postgres@datastore'
+
+  datastore:
+    build: './backend/datastore'
+    volumes:
+      - 'subsunday-data:/var/lib/postgresql/data'
+
+volumes:
+  subsunday-data: {}
