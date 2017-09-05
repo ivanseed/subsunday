@@ -2,6 +2,12 @@ version: '2'
 
 services:
 
+  app:
+    ports:
+      - '3000:3000'
+    volumes:
+      - './frontend/app:/usr/src/app'
+
   web:
     ports:
       - '8080:80'

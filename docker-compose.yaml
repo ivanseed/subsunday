@@ -3,8 +3,15 @@ version: '2'
 services:
 
   web:
-    build: './frontend/server'
-    restart: 'always'
+    build: './frontend'
+    # volumes:
+    #   - './frontend:/usr/share/nginx/html/'
+    # command: [ "tail", "-f", "/dev/stdout" ]
+
+  app:
+    build: './frontend/app'
+
+    command: [ "tail", "-f", "/dev/stdout" ]
 
   api:
     build: './backend/api'
