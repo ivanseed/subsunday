@@ -4,14 +4,11 @@ services:
 
   web:
     build: './frontend'
-    # volumes:
-    #   - './frontend:/usr/share/nginx/html/'
-    # command: [ "tail", "-f", "/dev/stdout" ]
+    # @TODO: Volume sharing between web & app_builder
 
-  app:
+  app_builder:
     build: './frontend/app'
-
-    command: [ "tail", "-f", "/dev/stdout" ]
+    # @TODO: Volume sharing between web & app_builder
 
   api:
     build: './backend/api'

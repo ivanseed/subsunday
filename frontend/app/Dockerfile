@@ -4,10 +4,14 @@ WORKDIR /usr/src/app
 
 COPY package.json .
 
+ENV NPM_CONFIG_LOGLEVEL warn
+
 RUN npm install
 
 COPY . .
 
-EXPOSE 3000
+RUN npm run-script build-css
 
-# @TODO: Start app
+RUN npm build
+
+EXPOSE 3000
