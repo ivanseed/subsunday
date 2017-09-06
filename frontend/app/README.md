@@ -8,26 +8,32 @@ The `app_builder` container is used to build the production code into the `build
 
 ## FAQ
 
+How do I start the app in development mode?
+
+```sh
+docker exec -it subsunday_app_builder_1 npm start
+```
+
 How do I view the site locally?
 
-```
+```sh
 http://localhost:3000
 ```
 
 How do I bash into the app container?
 
-```
+```sh
 docker exec -it subsunday_app_builder_1 bash
 ```
 
 How do I run the sass watcher?
 
-```
+```sh
 docker exec -it subsunday_app_builder_1 npm run-script watch-css
 ```
 
-How do I re-build the app?
+How do I re-build the app so I can see what it would look like on the `web` container?
 
-```
+```sh
 docker exec -it subsunday_app_builder_1 npm build
 ```

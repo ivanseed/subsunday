@@ -2,16 +2,14 @@ FROM node:boron
 
 WORKDIR /usr/src/app
 
-COPY package.json .
+COPY . .
 
 ENV NPM_CONFIG_LOGLEVEL warn
 
 RUN npm install
 
-COPY . .
+RUN npm run build-css
 
-RUN npm run-script build-css
-
-RUN npm build
+RUN npm run build
 
 EXPOSE 3000

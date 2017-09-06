@@ -23,9 +23,19 @@ Then, from the root of the project, start by populating the database once:
 ./scripts/admin run --rm populate-datastore
 ```
 
-and then just start all the services:
+then just start all the services:
 ```sh
 ./scripts/dev up -d
+```
+
+if it is your first time setting up you will need to install dependencies for the `app_builder` since your local file system overwrites the build file steps:
+```sh
+docker exec -it subsunday_app_builder_1 npm install
+```
+
+and then run the app builder in development mode, access with port 3000:
+```sh
+docker exec -it subsunday_app_builder_1 npm start
 ```
 
 You can check the logs using:
@@ -44,8 +54,9 @@ or by reading the [docker-compose documention](https://docs.docker.com/compose/)
 ### Repository structure summary
 
 The root of the repository is composed of a `backend` and a `frontend` root folder as well as a a docker-compose service description file that will serve as a base for the project's orchestration.
-There are currently 3 services defined in it:
- - `web` : the webserver used as an entrypoint for all the requests. It currently builds the image described in `frontend/server` which just uses an `nginx 1.13` as a base and uses the configuration present in that same folder
+There are currently 4 services defined in it:
+- `app_builder` : builder process that takes the latest stable node image and builds the static, front-end, files into a build folder that is shared between this service and the `web` service. Alternatively when developing locally, this service can be used to run the app in development mode allowing you to leverage hot reloading while working against the deploy environment. 
+- `web` : the webserver used as an entrypoint for all the requests. It currently builds the image described in `frontend/server` which just uses an `nginx 1.13` as a base and uses the configuration present in that same folder
 - `api`: the backend app written in python which embeds a small webserver which will serve the api and will be proxied by the `web` service above
 - `datastore`: the persistent layer. Currently building the image described in `backed/datastore` which just uses a `postgresql 9.6` as a base and uses a mounted docker volume called `subsunday-data` to store the data
 

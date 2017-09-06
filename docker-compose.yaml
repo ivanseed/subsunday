@@ -3,12 +3,14 @@ version: '2'
 services:
 
   web:
-    build: './frontend'
-    # @TODO: Volume sharing between web & app_builder
+    build: './frontend/server'
+    volumes:
+      - 'shared-build:/usr/share/nginx/html'
 
   app_builder:
     build: './frontend/app'
-    # @TODO: Volume sharing between web & app_builder
+    volumes:
+      - 'shared-build:/usr/src/app/build'
 
   api:
     build: './backend/api'
@@ -25,3 +27,5 @@ services:
 
 volumes:
   subsunday-data: {}
+  shared-build:
+    driver: local

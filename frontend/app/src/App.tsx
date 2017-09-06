@@ -6,7 +6,7 @@ class App extends React.Component {
     return (
       <div className="App">
         <div className="App-header">
-          <h2>SubSunday</h2>
+          <h2>SewbSunday</h2>
         </div>
         <p className="App-intro">
           To get started, edit <code>src/App.tsx</code> and save to reload.
