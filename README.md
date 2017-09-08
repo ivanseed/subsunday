@@ -23,6 +23,11 @@ Then, from the root of the project, start by populating the database once:
 ./scripts/admin run --rm populate-datastore
 ```
 
+you will also need to create a docker volume, which is going to be shared between the `app_builder` and `web`:
+```sh
+docker volume create shared-build
+```
+
 then just start all the services:
 ```sh
 ./scripts/dev up -d
@@ -30,12 +35,12 @@ then just start all the services:
 
 if it is your first time setting up you will need to install dependencies for the `app_builder` since your local file system overwrites the build file steps:
 ```sh
-docker exec -it subsunday_app_builder_1 npm install
+docker-compose exec app_builder npm install
 ```
 
 and then run the app builder in development mode, access with port 3000:
 ```sh
-docker exec -it subsunday_app_builder_1 npm start
+docker-compose exec app_builder npm start
 ```
 
 You can check the logs using:
