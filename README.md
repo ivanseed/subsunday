@@ -23,11 +23,6 @@ Then, from the root of the project, start by populating the database once:
 ./scripts/admin run --rm populate-datastore
 ```
 
-you will also need to create a docker volume, which is going to be shared between the `app_builder` and `web`:
-```sh
-docker volume create shared-build
-```
-
 then just start all the services:
 ```sh
 ./scripts/dev up -d
@@ -60,7 +55,7 @@ or by reading the [docker-compose documention](https://docs.docker.com/compose/)
 
 The root of the repository is composed of a `backend` and a `frontend` root folder as well as a a docker-compose service description file that will serve as a base for the project's orchestration.
 There are currently 4 services defined in it:
-- `app_builder` : builder process that takes the latest stable node image and builds the static, front-end, files into a build folder that is shared between this service and the `web` service. Alternatively when developing locally, this service can be used to run the app in development mode allowing you to leverage hot reloading while working against the deploy environment. 
+- `app_builder` : builder process that takes the latest stable node image and builds the static, front-end, files into a build folder that is shared between this service and the `web` service. Alternatively when developing locally, this service can be used to run the app in development mode allowing you to leverage hot reloading while working against the deploy environment.
 - `web` : the webserver used as an entrypoint for all the requests. It currently builds the image described in `frontend/server` which just uses an `nginx 1.13` as a base and uses the configuration present in that same folder
 - `api`: the backend app written in python which embeds a small webserver which will serve the api and will be proxied by the `web` service above
 - `datastore`: the persistent layer. Currently building the image described in `backed/datastore` which just uses a `postgresql 9.6` as a base and uses a mounted docker volume called `subsunday-data` to store the data
